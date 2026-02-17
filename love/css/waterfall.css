@@ -1,0 +1,561 @@
+/* ========== 现代深色主题 - Netflix/Unsplash 风格 ========== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0f0f0f;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  color: #f0f0f0;
+}
+
+/* ========== 容器 ========== */
+.waterfall-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #0a0a0a 0%, #121212 50%, #0a0a0a 100%);
+  min-height: 100vh;
+}
+
+.waterfall-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.waterfall-header h1 {
+  font-size: 3.5rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.waterfall-header p {
+  font-size: 1rem;
+  color: #888888;
+  margin-bottom: 8px;
+  font-weight: 300;
+}
+
+.waterfall-stats,
+.video-stats {
+  font-size: 0.9rem;
+  color: #666666;
+  margin-top: 12px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+/* ========== 瀑布流网格 ========== */
+.waterfall-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  padding: 0;
+}
+
+.photo-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #1a1a1a;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #2a2a2a;
+}
+
+.photo-item:hover {
+  border-color: #4a4a4a;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.photo-item img.loaded {
+  opacity: 1;
+}
+
+.photo-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+}
+
+.photo-item:hover::after {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* ========== 模态框 ========== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+  backdrop-filter: blur(4px);
+}
+
+.modal-overlay.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 90%;
+  max-width: 900px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.modal-image-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 75vh;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.modal-counter {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.modal-nav {
+  width: 50px;
+  height: 50px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.modal-nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.modal-nav:active {
+  transform: scale(0.95);
+}
+
+/* ========== 加载指示器 ========== */
+.loading-more {
+  text-align: center;
+  padding: 40px 20px;
+  color: #95a5a6;
+  font-size: 0.95em;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 1024px) {
+  .waterfall-container {
+    padding: 40px 16px;
+  }
+
+  .waterfall-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .waterfall-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .video-card video {
+    min-height: 240px;
+  }
+
+  .modal-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .modal-nav {
+    display: none;
+  }
+
+  .modal-close {
+    top: 20px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .waterfall-container {
+    padding: 30px 12px;
+  }
+
+  .waterfall-header h1 {
+    font-size: 2rem;
+  }
+
+  .waterfall-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+  }
+
+  .video-card video {
+    min-height: 200px;
+  }
+
+  .modal-image {
+    max-height: 60vh;
+  }
+
+  .photo-item:hover {
+    transform: translateY(-4px);
+  }
+
+  .video-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 480px) {
+  .waterfall-container {
+    padding: 20px 10px;
+  }
+
+  .waterfall-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .waterfall-header {
+    margin-bottom: 30px;
+  }
+
+  .waterfall-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 6px;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .video-card video {
+    min-height: 180px;
+  }
+
+  .modal-close {
+    width: 36px;
+    height: 36px;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+  }
+
+  .modal-image {
+    max-height: 50vh;
+    max-width: 95%;
+  }
+
+  .modal-counter {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  .photo-item:hover {
+    transform: translateY(-2px);
+  }
+
+  .video-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* ========== 视频网格 ========== */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  padding: 0;
+}
+
+.video-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #1a1a1a;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #2a2a2a;
+  cursor: pointer;
+}
+
+.video-card:hover {
+  border-color: #4a4a4a;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.video-card video {
+  width: 100%;
+  height: auto;
+  min-height: 280px;
+  object-fit: contain;
+  background: #0f0f0f;
+  display: block;
+}
+
+.video-card::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.video-card::after {
+  content: '▶';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.video-card:hover::before {
+  opacity: 0.3;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.video-card:hover::after {
+  opacity: 1;
+}
+
+/* ========== 加载动画 ========== */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.photo-item:not(.loaded),
+.video-card:not(.loaded) {
+  background: linear-gradient(
+    90deg,
+    #1a1a1a 25%,
+    #2a2a2a 50%,
+    #1a1a1a 75%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ========== 焦点状态 ========== */
+.photo-item:focus-visible,
+.video-card:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -2px;
+}
+
+/* ========== 无障碍 ========== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========== 禁用滚动时 ========== */
+body.modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .video-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+
+  .video-card video {
+    height: auto;
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-section {
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+
+  .video-header h2 {
+    font-size: 1.6em;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+
+  .video-card video {
+    height: auto;
+    min-height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-section {
+    margin-top: 30px;
+    padding-top: 20px;
+  }
+
+  .video-header h2 {
+    font-size: 1.3em;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .video-card video {
+    height: auto;
+    min-height: 200px;
+  }
+}

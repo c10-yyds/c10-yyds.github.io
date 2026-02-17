@@ -34,82 +34,97 @@ code, pre, .highlight {
   text-rendering: optimizeLegibility;
 }
 
-/* ========== 浪漫粉色主题定制 ========== */
+/* ========== 现代深色主题定制 ========== */
 
-/* 导航栏渐变 */
+/* 导航栏 - 深色背景 */
 #nav {
-  background: linear-gradient(135deg, rgba(233, 30, 99, 0.85) 0%, rgba(236, 64, 122, 0.85) 100%) !important;
+  background: linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(18, 18, 18, 0.95) 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 #nav a {
-  color: #fff !important;
+  color: #f0f0f0 !important;
 }
 
 /* 侧边栏卡片美化 */
 .card-widget {
-  border: 1px solid rgba(233, 30, 99, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(26, 26, 26, 0.8) !important;
   transition: all 0.3s !important;
 }
 .card-widget:hover {
-  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.12) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 /* 文章卡片 hover 效果 */
 #recent-posts .recent-post-item {
   transition: all 0.3s !important;
   border: 1px solid transparent !important;
+  background: rgba(26, 26, 26, 0.8) !important;
 }
 #recent-posts .recent-post-item:hover {
-  border-color: rgba(233, 30, 99, 0.15) !important;
-  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
   transform: translateY(-3px) !important;
 }
 
 /* 页脚美化 */
 #footer {
-  background: linear-gradient(135deg, #fce4ec 0%, #f48fb1 50%, #ec407a 100%) !important;
+  background: linear-gradient(135deg, #0a0a0a 0%, #121212 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 /* 标签云颜色 */
 .tag-cloud-list a {
-  color: #e91e63 !important;
+  color: #aaaaaa !important;
   transition: all 0.3s !important;
 }
 .tag-cloud-list a:hover {
-  color: #c2185b !important;
+  color: #ffffff !important;
   transform: scale(1.1) !important;
 }
 
 /* 滚动条 */
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #f48fb1, #e91e63) !important;
+  background: linear-gradient(135deg, #666666, #888888) !important;
   border-radius: 10px !important;
 }
 
 /* 选中文字颜色 */
 ::selection {
-  background: rgba(233, 30, 99, 0.2) !important;
-  color: #c2185b !important;
+  background: rgba(200, 200, 200, 0.3) !important;
+  color: #ffffff !important;
 }
 
 /* 首页副标题样式 */
 #subtitle {
-  color: #fff !important;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
+  color: #f0f0f0 !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
 }
 
 /* 按钮样式统一 */
 .btn-beautify {
-  background: linear-gradient(135deg, #ec407a, #e91e63) !important;
-  border: none !important;
+  background: linear-gradient(135deg, #3a3a3a, #2a2a2a) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #f0f0f0 !important;
   transition: all 0.3s !important;
 }
 .btn-beautify:hover {
-  background: linear-gradient(135deg, #f06292, #ec407a) !important;
+  background: linear-gradient(135deg, #4a4a4a, #3a3a3a) !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 /* 分页器 */
 #pagination .page-number.current {
-  background: #e91e63 !important;
+  background: #666666 !important;
+}
+
+/* 链接颜色 */
+a {
+  color: #aaaaaa !important;
+}
+a:hover {
+  color: #ffffff !important;
 }
